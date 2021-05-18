@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <div class="film-card">
-  <img src=<%= @film.image_link %> />
+  <img src=<%= @film.image_link %> class="poster-img" />
 
   <div class="film-info">
     <% if current_user && current_user.admin? %>
@@ -65,7 +65,7 @@
           </div>
 
           <div class="actions">
-            <%= form.submit 'Отправить' %>
+            <%= form.submit 'Отправить', class: 'btn btn-sm btn-primary' %>
           </div>
         <% end %>
       </div>
