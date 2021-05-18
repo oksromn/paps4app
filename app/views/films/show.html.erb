@@ -1,0 +1,105 @@
+<p id="notice"><%= notice %></p>
+
+<div class="film-card">
+  <img src=<%= @film.image_link %> />
+
+  <div class="film-info">
+    <% if current_user && current_user.admin? %>
+      <%= link_to 'Редактировать', edit_film_path(@film),
+                  class: 'btn btn-sm btn-warning'
+      %>
+
+      <%= link_to 'Удалить', film_path(@film),
+                  method: :delete,
+                  data: { confirm: 'Вы хотите удалить этот фильм?' },
+                  class: 'btn btn-sm btn-danger'
+      %>
+    <% end %>
+
+    <table class="table film-info-table">
+      <tbody>
+      <tr>
+        <td>Рейтинг</td>
+        <td><%= @rating || @film.rating %></td>
+      </tr>
+      <tr>
+        <td>Название</td>
+        <td><%= @film.title %></td>
+      </tr>
+      <tr>
+        <td>Год выпуска</td>
+        <td><%= @film.year %></td>
+      </tr>
+      <tr>
+        <td>Жанр</td>
+        <td><%= @film.genre %></td>
+      </tr>
+      <tr>
+        <td>Кинокомпания</td>
+        <td><%= @film.company %></td>
+      </tr>
+      <tr>
+        <td>Режиссер</td>
+        <td><%= @film.producer %></td>
+      </tr>
+      <tr>
+        <td>Актеры</td>
+        <td><%= @film.actors %></td>
+      </tr>
+      <tr>
+        <td>Стоимость</td>
+        <td><%= @film.cost %></td>
+      </tr>
+      </tbody>
+    </table>
+
+    <% if current_user && !@rating %>
+      <div class="submit-rating">
+        <%= form_with(url: ratings_path, method: :post) do |form| %>
+          <%= form.hidden_field :film_id, value: @film.id %>
+          <%= form.hidden_field :user_id, value: current_user.id %>
+
+          <div class="form-group">
+            <%= form.label :value, 'Поставить рейтинг' %>
+            <%= form.text_field :value, class: 'form-control rating-field' %>
+          </div>
+
+          <div class="actions">
+            <%= form.submit 'Отправить' %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+
+  </div>
+</div>
+
+<div class="film-comments">
+  <h5>Комментарии</h5>
+
+  <% if current_user %>
+    <%= form_with(model: @film.comments, url: comments_path, method: :create) do |form| %>
+      <%= form.hidden_field :film_id, value: @film.id %>
+      <%= form.hidden_field :user_id, value: current_user.id %>
+
+      <div class="field mt-3">
+        <%= form.label :text, 'Оставить комментарий:' %>
+        <%= form.text_area :text, class: 'form-control' %>
+      </div>
+
+      <div class="actions">
+        <%= form.submit 'Отправить', class: 'btn btn-sm btn-primary mt-3' %>
+      </div>
+    <% end %>
+  <% end %>
+
+  <% @comments.each do |comment| %>
+    <div class="card comment">
+      <p class="card-header"><%= comment.created_at %> – <%= comment.user.email %></p>
+      <div class="card-body">
+        <p class="card-text"><%= comment.text %></p>
+      </div>
+    </div>
+  <% end %>
+
+</div>

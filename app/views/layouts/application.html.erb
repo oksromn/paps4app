@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Электронная видеотека</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <nav class="navbar navbar-dark bg-dark">
+      <a class="navbar-brand" href="/">Электронная видеотека</a>
+      <div>
+        <% if user_signed_in? %>
+          <%= link_to 'Выйти', destroy_user_session_path, method: :delete, class: 'btn btn-sm btn-danger login-btn' %>
+        <% else %>
+          <%= link_to 'Войти', new_user_session_path, class: 'btn btn-sm btn-primary login-btn' %>
+          <%= link_to 'Зарегистрироваться', new_user_registration_path, class: 'btn btn-sm btn-success login-btn' %>
+        <% end %>
+      </div>
+    </nav>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <div class="main">
+      <%= yield %>
+    </div>
+  </body>
+</html>

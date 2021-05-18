@@ -1,0 +1,27 @@
+<thead>
+  <tr>
+      <th scope="col">Рейтинг</th>
+      <th scope="col">Название</th>
+      <th scope="col">Год выпуска</th>
+      <th scope="col">Жанр</th>
+      <th scope="col">Кинокомпания</th>
+      <th scope="col">Режиссер</th>
+      <th scope="col">Актеры</th>
+      <th scope="col">Стоимость</th>
+  </tr>
+</thead>
+
+<tbody>
+  <% films.each do |film| %>
+  <tr>
+      <td><span class="badge bg-secondary"><%= film.rating %></span></td>
+      <td><%= link_to film.title, film %></td>
+      <td><%= film.year %></td>
+      <td><%= film.genre %></td>
+      <td><%= film.company %></td>
+      <td><%= film.producer %></td>
+      <td><%= film.actors %></td>
+      <td><%= film.cost %></td>
+  </tr>
+  <% end %>
+</tbody>

@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+
+<div class="control-buttons">
+  <% if current_user && current_user.admin? %>
+    <%= link_to 'Добавить фильм', new_film_path, method: :get, class: 'btn btn-sm btn-warning add-film-btn' %>
+  <% end %>
+  <button class="btn btn-sm btn-info sort-btn right">Сортировка</button>
+  <button
+    class="collapsed btn btn-sm btn-info filter-btn right"
+    data-bs-toggle="collapse"
+    data-bs-target="#filter"
+    aria-expanded="false"
+    aria-controls="filter"
+  >
+    Фильтр
+  </button>
+  <div id="filter" class="accordion-collapse collapse right" aria-labelledby="filter">
+    <div class="accordion-body">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Фильтрация фильмов</h5>
+          <%= form_with(url: films_path, method: :get) do |form| %>
+            <div class="form-group">
+              <%= form.label :search, 'Поиск' %>
+              <%= form.text_field :search, class: 'form-control' %>
+            </div>
+
+            <div class="actions">
+              <%= form.submit 'Применить', class: 'btn btn-sm btn-success' %>
+              <%= link_to 'Сбросить', films_path, method: :get, class: 'btn btn-sm btn-danger', remote: true %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<table class="table film-table">
+  <%= render partial: 'films_table', locals: {films: @films} %>
+</table>
