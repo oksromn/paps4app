@@ -3,13 +3,14 @@ class Film < ApplicationRecord
   has_many :ratings
 
   validates :title, presence: true
+  validates :rating, presence: true
   validates :year, presence: true
   validates :genre, presence: true
   validates :company, presence: true
   validates :producer, presence: true
   validates :actors, presence: true
   validates :cost, presence: true
-  validates :image_link, presence: true, format: { with: /(http|https):\/\/\S+\/\S+.jpg/ }
+  validates :image_link, presence: true, format: { with: /\A(http|https):\/\/\S+\/\S+.jpg\z/ }
 
   def self.search(keywords)
     if keywords
