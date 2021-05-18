@@ -4,7 +4,15 @@
   <% if current_user && current_user.admin? %>
     <%= link_to 'Добавить фильм', new_film_path, method: :get, class: 'btn btn-sm btn-warning add-film-btn' %>
   <% end %>
-  <button class="btn btn-sm btn-info sort-btn right">Сортировка</button>
+  <button
+    class="btn btn-sm btn-info sort-btn right"
+    data-bs-toggle="collapse"
+    data-bs-target="#sorter"
+    aria-expanded="false"
+    aria-controls="sorter"
+  >
+    Сортировка
+  </button>
   <button
     class="collapsed btn btn-sm btn-info filter-btn right"
     data-bs-toggle="collapse"
@@ -23,6 +31,40 @@
             <div class="form-group">
               <%= form.label :search, 'Поиск' %>
               <%= form.text_field :search, class: 'form-control' %>
+            </div>
+
+            <div class="actions">
+              <%= form.submit 'Применить', class: 'btn btn-sm btn-success' %>
+              <%= link_to 'Сбросить', films_path, method: :get, class: 'btn btn-sm btn-danger', remote: true %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="sorter" class="accordion-collapse collapse right" aria-labelledby="sorter">
+    <div class="accordion-body">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Сортировка фильмов</h5>
+          <%= form_with(url: films_path, method: :get) do |form| %>
+            <div class="form-group">
+              <%= form.label :desc, 'В обратном порядке' %>
+              <%= form.check_box :desc %>
+            </div>
+
+            <div class="form-group">
+              <%= form.label :sort, 'По году выпуска', value: 'by_year' %>
+              <%= form.radio_button :sort, 'by_year' %>
+              <br />
+              <%= form.label :sort, 'По жанру', value: 'by_genre' %>
+              <%= form.radio_button :sort, 'by_genre' %>
+              <br />
+              <%= form.label :sort, 'По кинокомпании', value: 'by_company' %>
+              <%= form.radio_button :sort, 'by_company' %>
+              <br />
+              <%= form.label :sort, 'По режиссеру', value: 'by_producer' %>
+              <%= form.radio_button :sort, 'by_producer' %>
             </div>
 
             <div class="actions">

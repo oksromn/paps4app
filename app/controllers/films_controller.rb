@@ -3,9 +3,17 @@ class FilmsController < ApplicationController
 
   def index
     if params[:search]
-      @films = Film.search(params[:search])
+      @films = Film.search(params[:search]).sort_by(&:rating).reverse
     else
-      @films = Film.all
+      @films = Film.all.sort_by(&:rating).reverse
+    end
+
+    if params[:sort]
+      @films = @films.sort_by(&:year) if params[:sort] == 'by_year'
+      @films = @films.sort_by(&:genre) if params[:sort] == 'by_genre'
+      @films = @films.sort_by(&:company) if params[:sort] == 'by_company'
+      @films = @films.sort_by(&:producer) if params[:sort] == 'by_producer'
+      @films.reverse! if params[:desc] == '1'
     end
   end
 
