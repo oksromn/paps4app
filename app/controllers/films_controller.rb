@@ -3,7 +3,6 @@ class FilmsController < ApplicationController
 
   def index
     if params[:search]
-      puts "\n\n Films: #{Film.search(params[:search]).inspect}"
       @films = Film.search(params[:search])
     else
       @films = Film.all
@@ -19,8 +18,7 @@ class FilmsController < ApplicationController
     @film = Film.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @film = Film.new(film_params)

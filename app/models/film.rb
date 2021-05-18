@@ -14,9 +14,10 @@ class Film < ApplicationRecord
   def self.search(keywords)
     if keywords
       where(
-        "title LIKE ? OR year = ? OR actors LIKE ? OR producer LIKE ? OR company LIKE ?",
+        "title LIKE ? OR year = ? OR actors LIKE ? OR producer LIKE ? OR company LIKE ? OR genre LIKE ?",
         "%#{keywords}%",
         keywords.to_i,
+        "%#{keywords}%",
         "%#{keywords}%",
         "%#{keywords}%",
         "%#{keywords}%"

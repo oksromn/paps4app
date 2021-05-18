@@ -20,5 +20,4 @@ class RatingsController < ApplicationController
     def rating_params
       params.permit(:value, :user_id, :film_id)
     end
-
 end
