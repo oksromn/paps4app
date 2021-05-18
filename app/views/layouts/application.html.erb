@@ -6,7 +6,7 @@
     <%= csp_meta_tag %>
 
     <nav class="navbar navbar-dark bg-dark">
-      <a class="navbar-brand" href="/">Электронная видеотека</a>
+      <a class="navbar-brand" href="/">Электронная видеотека <small class="badge kim-badge badge-secondary">by Kim Viktoria</small></a>
       <div>
         <% if user_signed_in? %>
           <%= link_to 'Выйти', destroy_user_session_path, method: :delete, class: 'btn btn-sm btn-danger login-btn' %>
